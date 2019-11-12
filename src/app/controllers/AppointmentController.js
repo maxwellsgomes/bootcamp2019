@@ -31,10 +31,11 @@ class AppointmentController {
     }
 
     /* Verifica se a data não é do passado */
+    /* startOfHour arredonda sempre a hora cheia: Ex 18h30 para 18h00 */
     const hourStart = startOfHour(parseISO(date));
 
     if (isBefore(hourStart, new Date())) {
-      return res.status(400).json({ error: 'Past date are not permited!' });
+      return res.status(400).json({ error: 'Past dates are not permitted!' });
     }
     /* Verifica se há horário disponível */
     const checkAvailability = await Appointment.findOne({
